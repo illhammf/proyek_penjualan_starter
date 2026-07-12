@@ -15,6 +15,11 @@ class AplikasiPenjualan(tk.Tk):
         self.title("Sistem Manajemen Penjualan Toko - Kelompok 7")
         self.geometry("1100x700")
         self.minsize(950, 620)
+        
+        try:
+            self.state("zoomed")
+        except tk.TclError:
+            pass
 
         self.database = Database()
         self.toko = Toko("Toko Kelompok 7")
