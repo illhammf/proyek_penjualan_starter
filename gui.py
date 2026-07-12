@@ -645,6 +645,32 @@ class AplikasiPenjualan(tk.Tk):
     @staticmethod
     def _rupiah(nilai: float) -> str:
         return f"Rp{nilai:,.0f}".replace(",", ".")
+    
+    @staticmethod
+    def _parse_nominal(teks: str) -> float:
+        nominal = teks.strip().lower()
+
+        if not nominal:
+            raise ValueError("Jumlah pembayaran belum diisi.")
+
+        nominal = nominal.replace("rp", "")
+        nominal = nominal.replace(" ", "")
+        nominal = nominal.replace(".", "")
+        nominal = nominal.replace(",", ".")
+
+        try:
+            nilai = float(nominal)
+        except ValueError as error:
+            raise ValueError(
+                "Jumlah pembayaran harus berupa angka."
+            ) from error
+
+        if nilai <= 0:
+            raise ValueError(
+                "Jumlah pembayaran harus lebih dari nol."
+            )
+
+        return nilai
 
     def muat_produk(self) -> None:
         self.produk_cache.clear()
