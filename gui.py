@@ -302,74 +302,308 @@ class AplikasiPenjualan(tk.Tk):
         self.tree_pelanggan.bind("<<TreeviewSelect>>", self.pilih_pelanggan)
 
     def _buat_tab_transaksi(self) -> None:
-        kontrol = ttk.LabelFrame(self.tab_transaksi, text="Input Transaksi")
-        kontrol.pack(fill="x", padx=10, pady=10)
+        # Mengatur layout utama tab transaksi.
+        self.tab_transaksi.columnconfigure(0, weight=1)
+        self.tab_transaksi.rowconfigure(1, weight=1)
+
+        # =========================
+        # FORM INPUT TRANSAKSI
+        # =========================
+        kontrol = ttk.LabelFrame(
+            self.tab_transaksi,
+            text="Input Transaksi",
+            padding=10,
+        )
+        kontrol.grid(
+            row=0,
+            column=0,
+            sticky="ew",
+            padx=10,
+            pady=(10, 5),
+        )
+
+        kontrol.columnconfigure(0, weight=1)
+        kontrol.columnconfigure(1, weight=2)
+        kontrol.columnconfigure(2, weight=0)
+        kontrol.columnconfigure(3, weight=0)
 
         self.var_pelanggan_transaksi = tk.StringVar(value="Umum")
         self.var_produk_transaksi = tk.StringVar()
         self.var_jumlah_transaksi = tk.StringVar(value="1")
 
-        ttk.Label(kontrol, text="Pelanggan").grid(row=0, column=0, padx=6, pady=(8, 2), sticky="w")
+        ttk.Label(
+            kontrol,
+            text="Pelanggan",
+        ).grid(
+            row=0,
+            column=0,
+            padx=6,
+            pady=(2, 4),
+            sticky="w",
+        )
+
         self.combo_pelanggan = ttk.Combobox(
             kontrol,
             textvariable=self.var_pelanggan_transaksi,
             state="readonly",
             width=30,
         )
-        self.combo_pelanggan.grid(row=1, column=0, padx=6, pady=(0, 8), sticky="ew")
+        self.combo_pelanggan.grid(
+            row=1,
+            column=0,
+            padx=6,
+            pady=(0, 4),
+            sticky="ew",
+        )
 
-        ttk.Label(kontrol, text="Produk").grid(row=0, column=1, padx=6, pady=(8, 2), sticky="w")
+        ttk.Label(
+            kontrol,
+            text="Produk",
+        ).grid(
+            row=0,
+            column=1,
+            padx=6,
+            pady=(2, 4),
+            sticky="w",
+        )
+
         self.combo_produk = ttk.Combobox(
             kontrol,
             textvariable=self.var_produk_transaksi,
             state="readonly",
             width=40,
         )
-        self.combo_produk.grid(row=1, column=1, padx=6, pady=(0, 8), sticky="ew")
-
-        ttk.Label(kontrol, text="Jumlah").grid(row=0, column=2, padx=6, pady=(8, 2), sticky="w")
-        ttk.Entry(kontrol, textvariable=self.var_jumlah_transaksi, width=10).grid(
-            row=1, column=2, padx=6, pady=(0, 8), sticky="ew"
-        )
-        ttk.Button(kontrol, text="Tambah ke Keranjang", command=self.tambah_ke_keranjang).grid(
-            row=1, column=3, padx=6, pady=(0, 8)
+        self.combo_produk.grid(
+            row=1,
+            column=1,
+            padx=6,
+            pady=(0, 4),
+            sticky="ew",
         )
 
-        kontrol.columnconfigure(0, weight=1)
-        kontrol.columnconfigure(1, weight=2)
+        ttk.Label(
+            kontrol,
+            text="Jumlah",
+        ).grid(
+            row=0,
+            column=2,
+            padx=6,
+            pady=(2, 4),
+            sticky="w",
+        )
+
+        self.entry_jumlah_transaksi = ttk.Entry(
+            kontrol,
+            textvariable=self.var_jumlah_transaksi,
+            width=10,
+        )
+        self.entry_jumlah_transaksi.grid(
+            row=1,
+            column=2,
+            padx=6,
+            pady=(0, 4),
+            sticky="ew",
+        )
+
+        ttk.Button(
+            kontrol,
+            text="Tambah ke Keranjang",
+            command=self.tambah_ke_keranjang,
+        ).grid(
+            row=1,
+            column=3,
+            padx=6,
+            pady=(0, 4),
+            sticky="ew",
+        )
+
+        # =========================
+        # TABEL KERANJANG
+        # =========================
+        area_tabel = ttk.Frame(self.tab_transaksi)
+        area_tabel.grid(
+            row=1,
+            column=0,
+            sticky="nsew",
+            padx=10,
+            pady=5,
+        )
+
+        area_tabel.columnconfigure(0, weight=1)
+        area_tabel.rowconfigure(0, weight=1)
 
         self.tree_keranjang = ttk.Treeview(
-            self.tab_transaksi,
+            area_tabel,
             columns=("kode", "nama", "harga", "jumlah", "subtotal"),
             show="headings",
         )
-        for kolom, judul in zip(
-            ("kode", "nama", "harga", "jumlah", "subtotal"),
-            ("Kode", "Produk", "Harga", "Jumlah", "Subtotal"),
-        ):
-            self.tree_keranjang.heading(kolom, text=judul)
-        self.tree_keranjang.column("kode", width=110, anchor="center")
-        self.tree_keranjang.column("nama", width=280)
-        self.tree_keranjang.column("harga", width=150, anchor="e")
-        self.tree_keranjang.column("jumlah", width=90, anchor="center")
-        self.tree_keranjang.column("subtotal", width=170, anchor="e")
-        self.tree_keranjang.pack(fill="both", expand=True, padx=10, pady=5)
 
+        kolom_keranjang = (
+            ("kode", "Kode"),
+            ("nama", "Produk"),
+            ("harga", "Harga"),
+            ("jumlah", "Jumlah"),
+            ("subtotal", "Subtotal"),
+        )
+
+        for kolom, judul in kolom_keranjang:
+            self.tree_keranjang.heading(kolom, text=judul)
+
+        self.tree_keranjang.column(
+            "kode",
+            width=110,
+            minwidth=90,
+            anchor="center",
+        )
+        self.tree_keranjang.column(
+            "nama",
+            width=280,
+            minwidth=180,
+        )
+        self.tree_keranjang.column(
+            "harga",
+            width=150,
+            minwidth=110,
+            anchor="e",
+        )
+        self.tree_keranjang.column(
+            "jumlah",
+            width=90,
+            minwidth=70,
+            anchor="center",
+        )
+        self.tree_keranjang.column(
+            "subtotal",
+            width=170,
+            minwidth=120,
+            anchor="e",
+        )
+
+        scrollbar_keranjang = ttk.Scrollbar(
+            area_tabel,
+            orient="vertical",
+            command=self.tree_keranjang.yview,
+        )
+
+        self.tree_keranjang.configure(
+            yscrollcommand=scrollbar_keranjang.set
+        )
+
+        self.tree_keranjang.grid(
+            row=0,
+            column=0,
+            sticky="nsew",
+        )
+
+        scrollbar_keranjang.grid(
+            row=0,
+            column=1,
+            sticky="ns",
+        )
+
+        # =========================
+        # TOMBOL DAN TOTAL
+        # =========================
         bawah = ttk.Frame(self.tab_transaksi)
-        bawah.pack(fill="x", padx=10, pady=10)
-        ttk.Button(bawah, text="Hapus Item", command=self.hapus_item_keranjang).pack(side="left", padx=3)
-        ttk.Button(bawah, text="Batalkan Transaksi", command=self.reset_transaksi).pack(side="left", padx=3)
+        bawah.grid(
+            row=2,
+            column=0,
+            sticky="ew",
+            padx=10,
+            pady=5,
+        )
+
+        ttk.Button(
+            bawah,
+            text="Hapus Item",
+            style="Danger.TButton",
+            command=self.hapus_item_keranjang,
+        ).pack(
+            side="left",
+            padx=(0, 6),
+        )
+
+        ttk.Button(
+            bawah,
+            text="Batalkan Transaksi",
+            style="Danger.TButton",
+            command=self.reset_transaksi,
+        ).pack(
+            side="left",
+            padx=6,
+        )
 
         self.var_total = tk.StringVar(value="Total: Rp0")
-        ttk.Label(bawah, textvariable=self.var_total, style="Total.TLabel").pack(side="right", padx=8)
 
-        bayar_frame = ttk.LabelFrame(self.tab_transaksi, text="Pembayaran")
-        bayar_frame.pack(fill="x", padx=10, pady=(0, 10))
+        ttk.Label(
+            bawah,
+            textvariable=self.var_total,
+            style="Total.TLabel",
+        ).pack(
+            side="right",
+            padx=8,
+        )
+
+        # =========================
+        # PEMBAYARAN
+        # =========================
+        bayar_frame = ttk.LabelFrame(
+            self.tab_transaksi,
+            text="Pembayaran",
+            padding=10,
+        )
+        bayar_frame.grid(
+            row=3,
+            column=0,
+            sticky="ew",
+            padx=10,
+            pady=(5, 10),
+        )
+
+        bayar_frame.columnconfigure(1, weight=1)
+
         self.var_bayar = tk.StringVar()
-        ttk.Label(bayar_frame, text="Jumlah Bayar").pack(side="left", padx=(10, 4), pady=10)
-        ttk.Entry(bayar_frame, textvariable=self.var_bayar, width=24).pack(side="left", padx=4, pady=10)
-        ttk.Button(bayar_frame, text="Proses Pembayaran", command=self.proses_pembayaran).pack(
-            side="left", padx=8, pady=10
+
+        ttk.Label(
+            bayar_frame,
+            text="Jumlah Bayar",
+        ).grid(
+            row=0,
+            column=0,
+            padx=(4, 8),
+            pady=4,
+            sticky="w",
+        )
+
+        self.entry_bayar = ttk.Entry(
+            bayar_frame,
+            textvariable=self.var_bayar,
+            font=("Segoe UI", 12),
+        )
+        self.entry_bayar.grid(
+            row=0,
+            column=1,
+            padx=4,
+            pady=4,
+            sticky="ew",
+        )
+
+        ttk.Button(
+            bayar_frame,
+            text="Proses Pembayaran",
+            command=self.proses_pembayaran,
+        ).grid(
+            row=0,
+            column=2,
+            padx=(10, 4),
+            pady=4,
+            sticky="ew",
+        )
+
+        # Tekan Enter untuk memproses pembayaran.
+        self.entry_bayar.bind(
+            "<Return>",
+            lambda _event: self.proses_pembayaran(),
         )
 
     def _buat_tab_laporan(self) -> None:
