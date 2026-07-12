@@ -885,23 +885,60 @@ class AplikasiPenjualan(tk.Tk):
 
     def proses_pembayaran(self) -> None:
         try:
+            daftar_item = self.penjualan_aktif.get_daftar_item()
+
+            if not daftar_item:
+                raise ValueError(
+                    "Keranjang masih kosong. Tambahkan produk terlebih dahulu."
+                )
+
             pelanggan = self._pelanggan_terpilih()
             self.penjualan_aktif.set_pelanggan(pelanggan)
-            jumlah_bayar = float(self.var_bayar.get())
-            kembalian = self.database.simpan_penjualan(self.penjualan_aktif, jumlah_bayar)
-            self.toko.simpan_penjualan(self.penjualan_aktif)
+
+            jumlah_bayar = self._parse_nominal(
+                self.var_bayar.get()
+            )
+
+            total_belanja = self.penjualan_aktif.hitung_total()
+
+            if jumlah_bayar < total_belanja:
+                kekurangan = total_belanja - jumlah_bayar
+
+                raise ValueError(
+                    "Uang pembayaran kurang "
+                    f"{self._rupiah(kekurangan)}."
+                )
+
+            kembalian = self.database.simpan_penjualan(
+                self.penjualan_aktif,
+                jumlah_bayar,
+            )
+
+            self.toko.simpan_penjualan(
+                self.penjualan_aktif
+            )
 
             struk = self.penjualan_aktif.cetak_struk()
+
             messagebox.showinfo(
                 "Transaksi Berhasil",
-                f"{struk}\nBayar: {self._rupiah(jumlah_bayar)}\nKembalian: {self._rupiah(kembalian)}",
+                (
+                    f"{struk}\n\n"
+                    f"Bayar: {self._rupiah(jumlah_bayar)}\n"
+                    f"Kembalian: {self._rupiah(kembalian)}"
+                ),
             )
+
             self.reset_transaksi()
             self.muat_produk()
             self.muat_pelanggan()
             self.muat_laporan()
+
         except (ValueError, sqlite3.Error) as error:
-            messagebox.showerror("Transaksi Gagal", str(error))
+            messagebox.showerror(
+                "Transaksi Gagal",
+                str(error),
+            )
 
     def reset_transaksi(self) -> None:
         self.penjualan_aktif = self._buat_penjualan_baru()
