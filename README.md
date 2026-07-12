@@ -4,11 +4,15 @@ Proyek akhir mata kuliah Bahasa Pemrograman untuk Kelompok 7.
 
 Aplikasi ini merupakan sistem manajemen penjualan toko berbasis desktop yang dibuat menggunakan Python, Tkinter, SQLite, dan konsep Object-Oriented Programming.
 
+---
+
 ## Deskripsi Proyek
 
 Sistem Manajemen Penjualan Toko membantu proses pengelolaan data produk, data pelanggan, transaksi penjualan, pembayaran, stok, dan laporan penjualan.
 
 Aplikasi berjalan sebagai aplikasi desktop. Pengguna dapat menjalankannya langsung melalui Python tanpa server web dan tanpa koneksi internet.
+
+---
 
 ## Fitur Utama
 
@@ -29,6 +33,8 @@ Aplikasi berjalan sebagai aplikasi desktop. Pengguna dapat menjalankannya langsu
 - Menampilkan laporan penjualan.
 - Menghitung total pendapatan toko.
 
+---
+
 ## Teknologi yang Digunakan
 
 - Python
@@ -38,6 +44,8 @@ Aplikasi berjalan sebagai aplikasi desktop. Pengguna dapat menjalankannya langsu
 - Modul standar Python
 
 Proyek ini tidak memerlukan library eksternal.
+
+---
 
 ## Konsep Object-Oriented Programming
 
@@ -111,6 +119,8 @@ Class `Toko` juga menyimpan kumpulan object produk, kasir, pelanggan, dan penjua
 
 Setiap class menggunakan constructor `__init__()` untuk memberikan nilai awal pada object.
 
+---
+
 ## Struktur Folder
 
 ```text
@@ -133,12 +143,16 @@ Keterangan:
 - `data/toko.db` menyimpan data produk, pelanggan, dan transaksi.
 - `README.md` berisi dokumentasi singkat proyek.
 
+---
+
 ## Persyaratan Sistem
 
 - Python 3.10 atau versi yang lebih baru direkomendasikan.
 - Sistem operasi Windows, Linux, atau macOS.
 - Tkinter harus tersedia pada instalasi Python.
 - SQLite tersedia melalui modul standar Python.
+
+---
 
 ## Cara Menjalankan Program
 
@@ -170,6 +184,8 @@ Pada Windows, perintah berikut juga dapat digunakan:
 py main.py
 ```
 
+---
+
 ## Data Kasir Awal
 
 Aplikasi menggunakan data kasir awal berikut:
@@ -183,6 +199,8 @@ Password : admin123
 ```
 
 Catatan: Pada versi saat ini, data kasir aktif dibuat langsung melalui kode program. Halaman login dapat ditambahkan pada pengembangan berikutnya.
+
+---
 
 ## Cara Menggunakan Aplikasi
 
@@ -253,6 +271,8 @@ Rp50.000
 3. Riwayat transaksi akan ditampilkan.
 4. Total pendapatan akan dihitung secara otomatis.
 
+---
+
 ## Alur Sistem
 
 ```text
@@ -275,6 +295,23 @@ Stok produk dikurangi
 Struk dan laporan ditampilkan
 ```
 
+---
+
+## Screenshoot GUI
+### Tampilan Data Pelanggan
+![Detail Project 1](images/datapelanggan.png)
+
+### Tampilkan Data Produk
+![Detail Project 2](images/dataproduk.png)
+
+### Tampilan Transaksi
+![Detail Project 3](images/transaksi.png)
+
+### Tampilan Laporan
+![Detail Project 4](images/laporan.png)
+
+---
+
 ## Validasi Data
 
 Aplikasi melakukan beberapa validasi:
@@ -290,6 +327,8 @@ Aplikasi melakukan beberapa validasi:
 - Keranjang tidak boleh kosong saat pembayaran.
 - Jumlah pembayaran harus berupa angka.
 - Jumlah pembayaran harus mencukupi total belanja.
+
+---
 
 ## Database
 
@@ -312,6 +351,8 @@ Data yang disimpan meliputi:
 - Pembayaran
 - Uang kembalian
 
+---
+
 ## Pengujian Aplikasi
 
 Lakukan pengujian berikut sebelum presentasi:
@@ -329,6 +370,8 @@ Lakukan pengujian berikut sebelum presentasi:
 11. Tutup aplikasi.
 12. Jalankan kembali aplikasi.
 13. Pastikan data tetap tersimpan.
+
+---
 
 ## Contoh Skenario Pengujian
 
@@ -361,7 +404,9 @@ Kembalian    : Rp11.000
 Sisa Stok    : 7
 ```
 
-## Troubleshooting
+---
+
+## Troubleshooting (Kegagalan dalam menjalankan)
 
 ### Program tidak berjalan
 
@@ -414,6 +459,8 @@ Periksa hal berikut:
 - Tidak ada pesan error saat transaksi.
 - Tombol `Muat Ulang` pada tab laporan sudah ditekan.
 
+---
+
 ## Batasan Sistem
 
 Versi saat ini memiliki beberapa batasan:
@@ -425,6 +472,8 @@ Versi saat ini memiliki beberapa batasan:
 - Belum memiliki fitur diskon.
 - Belum memiliki fitur retur barang.
 - Belum memiliki grafik laporan.
+
+---
 
 ## Rencana Pengembangan
 
@@ -443,6 +492,8 @@ Fitur berikut dapat ditambahkan:
 - Grafik pendapatan.
 - Sistem backup database.
 
+---
+
 ## Pembagian Tugas Kelompok
 
 Contoh pembagian tugas:
@@ -458,6 +509,8 @@ Contoh pembagian tugas:
 
 Sesuaikan pembagian tugas dengan jumlah anggota kelompok.
 
+---
+
 ## Deliverables
 
 Berkas yang harus disiapkan:
@@ -467,6 +520,8 @@ Berkas yang harus disiapkan:
 3. Manual book.
 4. Slide presentasi maksimal 10 slide.
 5. Poster.
+
+---
 
 ## Tim Pengembang
 
@@ -480,6 +535,8 @@ Program studi: Teknik Informatika
 Mata kuliah: Bahasa Pemrograman  
 Dosen pengampu: Ranny Meilisa, S.Kom., M.Pd.T.  
 Tahun: 2026
+
+---
 
 ## Lisensi
 
