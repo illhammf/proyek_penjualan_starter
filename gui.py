@@ -33,13 +33,150 @@ class AplikasiPenjualan(tk.Tk):
 
     def _atur_tampilan(self) -> None:
         style = ttk.Style(self)
+
         try:
             style.theme_use("clam")
         except tk.TclError:
             pass
-        style.configure("Title.TLabel", font=("Arial", 18, "bold"))
-        style.configure("Total.TLabel", font=("Arial", 16, "bold"))
-        style.configure("Treeview", rowheight=28)
+
+        warna_latar = "#EAF2F8"
+        warna_putih = "#FFFFFF"
+        warna_biru = "#1565C0"
+        warna_biru_tua = "#0D47A1"
+        warna_biru_muda = "#BBDEFB"
+        warna_teks = "#1F2937"
+
+        self.configure(bg=warna_latar)
+
+        style.configure(
+            ".",
+            font=("Segoe UI", 10),
+        )
+
+        style.configure(
+            "TFrame",
+            background=warna_latar,
+        )
+
+        style.configure(
+            "TLabel",
+            background=warna_latar,
+            foreground=warna_teks,
+        )
+
+        style.configure(
+            "Title.TLabel",
+            font=("Segoe UI", 22, "bold"),
+            background=warna_latar,
+            foreground=warna_biru_tua,
+        )
+
+        style.configure(
+            "Total.TLabel",
+            font=("Segoe UI", 18, "bold"),
+            background=warna_latar,
+            foreground=warna_biru_tua,
+        )
+
+        style.configure(
+            "TLabelframe",
+            background=warna_latar,
+            bordercolor="#90CAF9",
+            borderwidth=1,
+            relief="solid",
+        )
+
+        style.configure(
+            "TLabelframe.Label",
+            background=warna_latar,
+            foreground=warna_biru_tua,
+            font=("Segoe UI", 10, "bold"),
+        )
+
+        style.configure(
+            "TButton",
+            font=("Segoe UI", 10, "bold"),
+            padding=(12, 8),
+            background=warna_biru,
+            foreground=warna_putih,
+            borderwidth=0,
+        )
+
+        style.map(
+            "TButton",
+            background=[
+                ("active", "#1976D2"),
+                ("pressed", warna_biru_tua),
+                ("disabled", "#B0BEC5"),
+            ],
+            foreground=[
+                ("disabled", "#ECEFF1"),
+            ],
+        )
+
+        style.configure(
+            "Danger.TButton",
+            background="#D32F2F",
+            foreground=warna_putih,
+        )
+
+        style.map(
+            "Danger.TButton",
+            background=[
+                ("active", "#B71C1C"),
+                ("pressed", "#8E0000"),
+            ],
+        )
+
+        style.configure(
+            "TNotebook",
+            background=warna_latar,
+            borderwidth=0,
+        )
+
+        style.configure(
+            "TNotebook.Tab",
+            padding=(18, 10),
+            font=("Segoe UI", 10, "bold"),
+            background=warna_biru_muda,
+            foreground=warna_biru_tua,
+        )
+
+        style.map(
+            "TNotebook.Tab",
+            background=[
+                ("selected", warna_biru),
+                ("active", "#90CAF9"),
+            ],
+            foreground=[
+                ("selected", warna_putih),
+            ],
+        )
+
+        style.configure(
+            "Treeview",
+            rowheight=30,
+            background=warna_putih,
+            fieldbackground=warna_putih,
+            foreground=warna_teks,
+            borderwidth=0,
+        )
+
+        style.configure(
+            "Treeview.Heading",
+            font=("Segoe UI", 10, "bold"),
+            background=warna_biru,
+            foreground=warna_putih,
+            relief="flat",
+            padding=8,
+        )
+
+        style.map(
+            "Treeview.Heading",
+            background=[
+                ("active", "#1976D2"),
+            ],
+        )
 
     def _buat_notebook(self) -> None:
         judul = ttk.Label(
